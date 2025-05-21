@@ -11,14 +11,12 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 async def on_ready():
     print("Bot allumé !")
 
+    await bot.load_extension("cogs.info")
+
     try:
         synced = await bot.tree.sync()
         print(f"Commandes slash synchro : {len(synced)}")
     except Exception as e:
         print(e)
-
-@bot.tree.command(name="youtube", description="Affiche la chaine youtube de la KOG")
-async def youtube(interaction: discord.Interaction):
-    await interaction.response.send_message("Voici la chaine youtube de la KOG : ")
 
 bot.run(os.getenv('DISCORD_TOKEN'))
