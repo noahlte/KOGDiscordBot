@@ -31,7 +31,7 @@ cd kog-discord-bot
 
 ```bash
 python -m venv env
-env\Scripts\activate  # Sous Windows
+./env/Scripts/activate  # Sous Windows
 source env/bin/activate  # Sous Linux/macOS
 ```
 
