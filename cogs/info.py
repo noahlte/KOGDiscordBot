@@ -30,6 +30,11 @@ class Info(commands.Cog):
         
         result = "\n".join(liste_serveur)
         await interaction.response.send_message(f"Vote pour la KOG :\n{result}")
+    
+    @app_commands.command(name="member-counts", description="Montre le nombre de joueur sur le serveur")
+    async def member_counts(self, interaction: discord.Interaction):
+        member_counts = interaction.guild.member_count
+        await interaction.response.send_message(f"Le nombre de joueurs est de {member_counts}")
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Info(bot))
