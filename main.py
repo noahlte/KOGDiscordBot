@@ -12,6 +12,7 @@ async def on_ready():
     print("Bot allumé !")
 
     await bot.load_extension("cogs.info")
+    await bot.load_extension("cogs.admin")
 
     try:
         synced = await bot.tree.sync()
