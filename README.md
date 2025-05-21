@@ -25,13 +25,18 @@ KOG est un bot Discord personnalisé développé en Python avec `discord.py`, co
 ```bash
 git clone https://github.com/tonpseudo/kog-discord-bot.git
 cd kog-discord-bot
+```
 
 ### 2. Créer un environnement virtuel
 
+```bash
 python -m venv env
 env\Scripts\activate  # Sous Windows
 source env/bin/activate  # Sous Linux/macOS
+```
 
 ### Installer les dépendances
 
+```bash
 pip install -r requirements.txt
+```
