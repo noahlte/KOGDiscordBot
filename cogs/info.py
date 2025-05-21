@@ -25,7 +25,7 @@ class Info(commands.Cog):
     @app_commands.command(name="vote", description="Affiche le TOP SERVEUR des serveurs KOG")
     async def vote(self, interaction: discord.Interaction):
         liste_serveur = [
-            "Serveur SWTOR : https://top-serveurs.net/garrys-mod/kog-swtor"
+            "**Serveur SWTOR** : https://top-serveurs.net/garrys-mod/kog-swtor"
             ]
         
         result = "\n".join(liste_serveur)

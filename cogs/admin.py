@@ -2,6 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 import asyncio
+from datetime import datetime
 
 class Admin(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -13,6 +14,9 @@ class Admin(commands.Cog):
         reason = "La raison du banissement"
     )
     async def ban(self, interaction : discord.Interaction, member: discord.Member, reason: str = "Aucune raison n'a été spécifié"):
+
+        date_aujourdhui = datetime.now().strftime("%d/%m/%Y")
+
         if not interaction.user.guild_permissions.ban_members:
             await interaction.response.send_message("❌ Tu n'as pas la permission de bannir.", ephemeral=True)
             return
@@ -25,8 +29,21 @@ class Admin(commands.Cog):
             await interaction.response.send_message("❌ Mon rôle est trop bas pour bannir ce membre.", ephemeral=True)
             return
         
+        embed = discord.Embed(
+            title="**🔨 Un joueur à été banni !**",
+            color=discord.Color.dark_red()
+        )
+
+        embed.set_thumbnail(url = member.display_avatar.url)
+        
+        embed.add_field(name="👤 Membre", value=member.mention, inline=True)
+        embed.add_field(name="👮 Modérateur", value=interaction.user.mention, inline=True)
+        embed.add_field(name="📄 Raison", value=reason, inline=False)
+
+        embed.set_footer(text=f"Banni le {date_aujourdhui}")
+        
         await member.ban(reason=reason)
-        await interaction.response.send_message(f"{member.mention} a été banni pour : **{reason}**")
+        await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="kick", description="Kick le joueur mentionné")
     @app_commands.describe(
@@ -34,6 +51,9 @@ class Admin(commands.Cog):
         reason = "La raison du banissement"
     )
     async def kick(self, interaction: discord.Interaction, member: discord.Member, reason: str = "Aucune raison n'a été spécifié"):
+
+        date_aujourdhui = datetime.now().strftime("%d/%m/%Y")
+
         if not interaction.user.guild_permissions.kick_members:
             await interaction.response.send_message("❌ Tu n'as pas la permission de kick.", ephemeral=True)
             return
@@ -46,8 +66,21 @@ class Admin(commands.Cog):
             await interaction.response.send_message("❌ Mon rôle est trop bas pour kick ce membre.", ephemeral=True)
             return
         
+        embed = discord.Embed(
+            title="**🔨 Un joueur à été kick !**",
+            color=discord.Color.dark_red()
+        )
+
+        embed.set_thumbnail(url = member.display_avatar.url)
+        
+        embed.add_field(name="👤 Membre", value=member.mention, inline=True)
+        embed.add_field(name="👮 Modérateur", value=interaction.user.mention, inline=True)
+        embed.add_field(name="📄 Raison", value=reason, inline=False)
+
+        embed.set_footer(text=f"Kick le {date_aujourdhui}")
+        
         await member.kick(reason=reason)
-        await interaction.response.send_message(f"{member.mention} a été kick pour : **{reason}**")
+        await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="mute", description="Mute le joueur mentionné")
     @app_commands.describe(
@@ -56,6 +89,7 @@ class Admin(commands.Cog):
         reason = "La raison du mute"
     )
     async def mute(self, interaction: discord.Interaction, member: discord.Member, duration: str, reason: str = "Aucune raison n'a été spécifié"):
+        date_aujourdhui = datetime.now().strftime("%d/%m/%Y")
         if not interaction.user.guild_permissions.moderate_members:
             await interaction.response.send_message("❌ Tu n'as pas la permission de mute.", ephemeral=True)
             return
@@ -71,7 +105,22 @@ class Admin(commands.Cog):
             return
         
         await member.add_roles(muted_role, reason=reason)
-        await interaction.response.send_message(f"🔇 {member.mention} a été mute pour {duration}. Raison : **{reason}**")
+
+        embed = discord.Embed(
+            title="**🔨 Un joueur à été mute**",
+            color=discord.Color.dark_red()
+        )
+
+        embed.set_thumbnail(url = member.display_avatar.url)
+
+        embed.add_field(name="👤 Membre", value=member.mention, inline=True)
+        embed.add_field(name="👮 Modérateur", value=interaction.user.mention, inline=True)
+        embed.add_field(name="🕰️ Durée", value=duration, inline=False)
+        embed.add_field(name="📄 Raison", value=reason, inline=True)
+
+        embed.set_footer(text=f"Mute le {date_aujourdhui}")
+
+        await interaction.response.send_message(embed=embed)
 
         await asyncio.sleep(time_in_seconds)
         await member.remove_roles(muted_role, reason="Fin du mute automatique")
