@@ -34,7 +34,7 @@ class Info(commands.Cog):
     @app_commands.command(name="member-counts", description="Montre le nombre de joueur sur le serveur")
     async def member_counts(self, interaction: discord.Interaction):
         member_counts = interaction.guild.member_count
-        await interaction.response.send_message(f"Le nombre de joueurs est de {member_counts}")
+        await interaction.response.send_message(f"Le serveur possède actuellement {member_counts} memrbes !")
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Info(bot))
