@@ -51,7 +51,7 @@ class Admin(commands.Cog):
 
     @app_commands.command(name="mute", description="Mute le joueur mentionné")
     @app_commands.describe(
-        member = "Le membre à bannir",
+        member = "Le membre à mute",
         duration = "Durée (Ex: 10s, 5m, 1h)",
         reason = "La raison du mute"
     )
