@@ -71,7 +71,7 @@ class Admin(commands.Cog):
             return
         
         await member.add_roles(muted_role, reason=reason)
-        await interaction.response.send_message(f"🔇 {member.mention} a été mute pour {duration}. Raison : {reason}")
+        await interaction.response.send_message(f"🔇 {member.mention} a été mute pour {duration}. Raison : **{reason}**")
 
         await asyncio.sleep(time_in_seconds)
         await member.remove_roles(muted_role, reason="Fin du mute automatique")
