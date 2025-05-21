@@ -35,7 +35,7 @@ env\Scripts\activate  # Sous Windows
 source env/bin/activate  # Sous Linux/macOS
 ```
 
-### Installer les dépendances
+### 3. Installer les dépendances
 
 ```bash
 pip install -r requirements.txt
