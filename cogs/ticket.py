@@ -47,7 +47,13 @@ class Ticket(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def setticket(self, ctx):
         view = TicketView()
-        await ctx.send("Clique sur le bouton pour ouvrir un ticket :", view=view)
+
+        embed = discord.Embed(
+            title="📩 **Ouvrir un ticket**",
+            description="Cliquez sur le bouton ci-dessous pour ouvrir un ticket :"
+        )
+
+        await ctx.send(embed=embed, view=view)
     
     @commands.command()
     @commands.has_permissions(manage_channels=True)

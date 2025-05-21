@@ -140,6 +140,5 @@ class Admin(commands.Cog):
         except:
             return None
 
-
 async def setup(bot: commands.Bot):
     await bot.add_cog(Admin(bot))
