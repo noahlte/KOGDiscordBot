@@ -40,3 +40,13 @@ source env/bin/activate  # Sous Linux/macOS
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
+## 📜 Commandes utiles
+
+- `!setticket` : Envoie le bouton pour ouvrir un ticket
+- `!close` : Ferme un salon de ticket
+- `/ban` : Bannit un membre avec une raison
+- `/roll` : Tire un nombre aléatoire
+- `/youtube` : Affiche le lien YouTube de la KOG
