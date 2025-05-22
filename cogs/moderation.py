@@ -3,13 +3,6 @@ from discord import app_commands
 from discord.ext import commands
 
 from datetime import datetime
-import asyncio
-import re
-import time
-
-import os
-import json
-
 
 class Moderation(commands.Cog):
 
