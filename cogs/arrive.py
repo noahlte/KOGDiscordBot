@@ -67,29 +67,34 @@ async def generate_welcome_image(member: discord.Member) -> discord.File:
 class Arrive(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-    
+
+    def get_log_channel(self, guild: discord.Guild):
+        setup_cog = self.bot.get_cog("Setup")
+        if setup_cog is None:
+            return None
+        return setup_cog.get_channel(guild.id, "arrive_channel")
+
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
-
-        channel_id = 1374758969855312085
-        channel = member.guild.get_channel(channel_id)
-
-        if channel is None:
-            return
-        
+        log_channel_id = self.get_log_channel(member.guild)
         file = await generate_welcome_image(member)
 
         embed = discord.Embed(
             title="**__🎉 On a un nouveau membre sur le serveur !__**",
-            description=f"Bienvenue {member.display_name} sur le serveur **{member.guild.name}** 🎉",
+            description=f"Bienvenue {member.mention} sur le serveur **{member.guild.name}** 🎉",
             color=discord.Color.dark_purple()
         )
-
         embed.set_image(url="attachment://welcome.png")
         embed.set_footer(text="Nous sommes maintenant " + str(len(member.guild.members)) + " membres sur le serveur !")
 
-        await channel.send(embed=embed, file=file)
-
+        if log_channel_id:
+            channel = member.guild.get_channel(log_channel_id)
+            if channel:
+                await channel.send(embed=embed, file=file)
+            else:
+                print(f"[⚠️] Salon introuvable avec l'ID {log_channel_id}")
+        else:
+            print("[⚠️] Aucun salon de log défini pour ce serveur.")
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Arrive(bot))

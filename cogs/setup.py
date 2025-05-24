@@ -45,5 +45,14 @@ class Setup(commands.Cog):
         self.set_channel(interaction.guild.id, "log_channel", channel.id)
         await interaction.response.send_message(f"✅ Logs channel define on {channel.mention}", ephemeral=True)
     
+    @app_commands.command(name="setup-arrive", description="Define the arrive channel for this server")
+    async def setup_logs(self, interaction: discord.Interaction, channel: discord.TextChannel):
+        if not interaction.user.guild_permissions.administrator:
+            await interaction.response.send_message("❌ You do not have the permission to use this command.", ephemeral=True)
+            return
+        
+        self.set_channel(interaction.guild.id, "arrive_channel", channel.id)
+        await interaction.response.send_message(f"✅ Arrive channel define on {channel.mention}", ephemeral=True)
+    
 async def setup(bot):
     await bot.add_cog(Setup(bot))

@@ -59,7 +59,7 @@ class Ticket(commands.Cog):
     async def ticket(self, interaction: discord.Interaction):
 
         if not interaction.user.guild_permissions.administrator:
-            await interaction.response.send_message(f"❌ {interaction.user.mention}, tu n'as pas l'autorisation d'initialiser le système de ticket !")
+            await interaction.response.send_message(f"❌ {interaction.user.mention}, tu n'as pas l'autorisation d'initialiser le système de ticket !", ephemeral=True)
             return
 
         embed = discord.Embed(title="Si tu as besoins de support, clique sur le bouton ci-dessous!", color=discord.Color.blue())
